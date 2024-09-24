@@ -28,8 +28,7 @@ files = [
     'setup.cfg',
     'pyproject.toml',
     'tox.ini',
-    'experiments/experiments.ipynb'
-
+    'experiments/experiments.ipynb',
     '.github/workflows/.gitkeep'
 
 ]
