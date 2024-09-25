@@ -14,3 +14,5 @@ class CustomException(Exception):
     def __str__(self):
 
         return f'Error Occured in Line no : {self.lineno} in the file name : {self.filename} and the details pf the error as follows : {self.error_msg}'
+    
+
