@@ -21,11 +21,15 @@ class DataConfig:
 class DataIngestion:
 
     def __init__(self):
+        self.config = DataConfig() 
+
+        logging.info("Initiating the DataIngestion")
+        self.initiate_data_ingestion()
+        
+    def initiate_data_ingestion(self):
 
         try : 
-            logging.info("Data Configuration started")
-            self.config = DataConfig() 
-
+            
             raw_path = self.config.raw_data_path 
             train_path = self.config.train_data_path
             test_path = self.config.test_data_path
@@ -53,11 +57,14 @@ class DataIngestion:
             test_data.to_csv(self.config.test_data_path) 
             logging.info("Testing Data Saving finished") 
 
-            logging.info("Data Configuration Ended")
+            logging.info("Data Ingestion Completed")  
+
+            return train_path , test_path 
         
         except Exception as e:
             logging.info(e)
-            raise CustomException(e,sys)
+            raise CustomException(e,sys) 
+
         
 
 if __name__ == "__main__":
