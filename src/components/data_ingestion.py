@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from src.logger.custom_logging import logging
 from src.exception.exception import CustomException 
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 from dataclasses import dataclass
 
@@ -69,11 +70,14 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    train_path , _ = obj.initiate_data_ingestion()
-    obj2 = DataTransformation(train_path)
-    x , y = obj2.initiate_data_transformation()
+    train_path , test_path = obj.initiate_data_ingestion()
+    obj2 = DataTransformation(train_path , test_path)
+    x , y , xt , yt = obj2.initiate_data_transformation()
 
-    print(x[0], y[0])
+    obj3 = ModelTrainer(x,y,xt,yt)
+
+    obj3.initiate_model_training()
+
 
         
 

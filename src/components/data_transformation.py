@@ -21,8 +21,9 @@ class DataTransformationConfig:
 
 class DataTransformation:
 
-    def __init__(self , train_path):
+    def __init__(self , train_path , test_path):
         self.train_path = train_path
+        self.test_path = test_path 
         self.trans_config = DataTransformationConfig()
         logging.info("Initializing DataTransformation")
     
@@ -53,7 +54,15 @@ class DataTransformation:
             
             logging.info("Preprocessing Completed")
 
-            return x_transformed , y.values
+            test_data = pd.read_csv(self.test_path) 
+
+            xt = test_data[features]
+            yt = test_data[labels] 
+
+            xt = ct1.transform(xt)
+            yt = yt.values 
+
+            return x_transformed , y.values , xt , yt 
 
         except Exception as e:
             logging.info(e)
