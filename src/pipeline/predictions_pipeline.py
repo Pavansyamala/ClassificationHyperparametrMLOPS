@@ -42,13 +42,13 @@ class PredictionPipeline:
             raise CustomException(e,sys) 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    data = pd.read_csv("D:\\Mlops\\artifacts\\raw_data.csv")
-    features = ['Square_Footage','Num_Bedrooms','Num_Bathrooms','Year_Built','Lot_Size','Garage_Size','Neighborhood_Quality']
-    features = data[features]
-    data = features.iloc[0:1,:]
+#     data = pd.read_csv("D:\\Mlops\\artifacts\\raw_data.csv")
+#     features = ['Square_Footage','Num_Bedrooms','Num_Bathrooms','Year_Built','Lot_Size','Garage_Size','Neighborhood_Quality']
+#     features = data[features]
+#     data = features.iloc[0:1,:]
 
-    obj = PredictionPipeline(data)
-    obj.initiate_prediction_pipeline()
+#     obj = PredictionPipeline(data)
+#     obj.initiate_prediction_pipeline()
         
