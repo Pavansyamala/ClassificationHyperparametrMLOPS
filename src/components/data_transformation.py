@@ -3,6 +3,7 @@ import sys
 
 from src.exception.exception import CustomException 
 from src.logger.custom_logging import logging 
+from src.utils.utils import save_object
 
 import pandas as pd
 import numpy as np
@@ -48,10 +49,8 @@ class DataTransformation:
 
             os.makedirs(dirname , exist_ok=True) 
 
-            with open(self.trans_config.preprocessor_path , 'wb') as file:
-                pickle.dump(ct1 , file=file)
+            save_object(self.trans_config.preprocessor_path , ct1)
             
-            logging.info("Saved Preprocessor object")
             logging.info("Preprocessing Completed")
 
             return x_transformed , y.values
