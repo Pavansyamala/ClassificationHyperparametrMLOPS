@@ -22,9 +22,9 @@ class DataConfig:
 
 class DataIngestion:
 
-    def __init__(self):
+    def __init__(self, path=None):
         self.config = DataConfig() 
-
+        self.path = path 
         logging.info("Initiating the DataIngestion")
         
     def initiate_data_ingestion(self):
@@ -41,7 +41,7 @@ class DataIngestion:
                 os.makedirs(dirname , exist_ok=True)
             
             
-            path = "D:\\InfosysCertificates\\archive (3)\\house_price_regression_dataset.csv"
+            path = self.path 
             data = pd.read_csv(path)
             data.to_csv(raw_path) 
             logging.info("Raw Data Saved")
@@ -66,17 +66,6 @@ class DataIngestion:
             logging.info(e)
             raise CustomException(e,sys) 
 
-        
-
-if __name__ == "__main__":
-    obj = DataIngestion()
-    train_path , test_path = obj.initiate_data_ingestion()
-    obj2 = DataTransformation(train_path , test_path)
-    x , y , xt , yt = obj2.initiate_data_transformation()
-
-    obj3 = ModelTrainer(x,y,xt,yt)
-
-    obj3.initiate_model_training()
 
 
         
