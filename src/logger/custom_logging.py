@@ -21,6 +21,4 @@ logging.basicConfig(
     format='[%(asctime)s] %(lineno)d %(name)s %(levelname)s - %(message)s'
 )
 
-# Main function for logging a test message
-if __name__ == '__main__':
-    logging.info("Testing Finished")
+
