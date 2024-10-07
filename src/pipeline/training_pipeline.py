@@ -6,7 +6,8 @@ from src.logger.custom_logging import logging
 from src.components.data_ingestion import DataIngestion 
 from src.components.data_transformation import DataTransformation 
 from src.components.model_trainer import ModelTrainer 
-from src.utils.utils import load_object 
+from src.utils.utils import load_object  
+from src.components.model_evaluation import modelEvaluvation 
 
 
 class TrainingPipeline:
@@ -28,6 +29,9 @@ class TrainingPipeline:
             model_training = ModelTrainer(x,y,xt , yt)
 
             model_path = model_training.initiate_model_training()
+
+            model_eval = modelEvaluvation(xt,yt,model_path) 
+            model_eval.initiateModelEvaluation()
 
             logging.info(f"Training Pipeline Finished and Model is succesfully saved at the location {model_path}")
 

@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Mlops/mlruns/0/db059faf053a49a9aaffb16489334bc7/artifacts
+end_time: 1728297517631
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: db059faf053a49a9aaffb16489334bc7
+run_name: welcoming-swan-91
+run_uuid: db059faf053a49a9aaffb16489334bc7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728297517513
+status: 3
+tags: []
+user_id: PAVAN
