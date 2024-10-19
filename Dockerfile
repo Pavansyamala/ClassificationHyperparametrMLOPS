@@ -1,8 +1,8 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 USER root
 
 # Create application directory
-RUN mkdir /app
+RUN mkdir -p /app/airflow/dags
 COPY . /app/
 WORKDIR /app/
 
@@ -11,16 +11,14 @@ RUN pip install -r requirements.txt
 
 # Set environment variables
 ENV AIRFLOW_HOME=/app/airflow
-ENV AIRFLOW_CORE_DAGBAG_IMPORT_TIMEOUT=1000
-ENV AIRFLOW_CORE_ENABLE_XCOM_PICKLING=True
-# Set the SQLite database URL via environment variable
+ENV AIRFLOW__CORE__DAGS_FOLDER=/app/airflow/dags
 ENV AIRFLOW__CORE__SQL_ALCHEMY_CONN=sqlite:////app/airflow/airflow.db
 
 # Initialize Airflow DB
 RUN airflow db init
 
 # Create an admin user
-RUN airflow users create -e pavankasa86@gmail.com -f kasa -l pavan -p admin -r Admin -u admin
+RUN airflow users create -e pavansyamaladata2025@gmail.com -f kasa -l pavan -p admin -r Admin -u admin
 
 # Make the start.sh script executable
 RUN chmod 777 start.sh

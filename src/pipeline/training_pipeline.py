@@ -44,6 +44,7 @@ class TrainingPipeline:
             model_path = self.start_model_training(x,y,xt,yt)
         except Exception as e:
             raise CustomException(e,sys)
+    
         
     # def initiate_training_pipeline(self):
 
@@ -71,8 +72,8 @@ class TrainingPipeline:
     #         logging.info(e)
     #         raise CustomException(e , sys)
 
-# if __name__ == "__main__": 
+if __name__ == "__main__": 
 
-#     obj = TrainingPipeline()
-#     obj.initiate_training_pipeline()
+    obj = TrainingPipeline()
+    obj.start_training()
         

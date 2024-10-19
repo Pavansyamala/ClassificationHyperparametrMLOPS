@@ -9,11 +9,13 @@ from src.pipeline.training_pipeline import TrainingPipeline
 training_pipeline = TrainingPipeline()
 
 with DAG(
-    dag_id="house_price_prediction",  # Updated DAG name (no spaces)
-    schedule_interval='@weekly',  # Corrected schedule argument
+    "house_price_prediction",  # Updated DAG name (no spaces)
+    description = 'It is my training pipeline',
+    schedule='@weekly',  # Corrected schedule argument
     start_date=pendulum.datetime(2024, 10, 18, tz='UTC'),
-    catchup=False  # Prevent backfilling
-) as dag:
+    catchup=False,  
+    tags = ['machine_learning','regression','training','airflow']
+) as dag :
     dag.doc_md = __doc__
 
     def data_ingestion(**kwargs):
@@ -28,16 +30,21 @@ with DAG(
             data_ingestion_artifact['training_path'], 
             data_ingestion_artifact['testing_path']
         )
+        x = x.tolist()
+        y = y.tolist()
+        xt = xt.tolist()
+        yt = yt.tolist()
         ti.xcom_push("data_transformation_artifact", {"x": x, "y": y, "xt": xt, "yt": yt})
 
     def model_trainer(**kwargs):
+        import numpy as np
         ti = kwargs['ti']
         data_transformation_artifact = ti.xcom_pull(task_ids='data_transformation', key='data_transformation_artifact')
         model_path = training_pipeline.start_model_training(
-            data_transformation_artifact['x'], 
-            data_transformation_artifact['y'], 
-            data_transformation_artifact['xt'], 
-            data_transformation_artifact['yt']
+            np.array(data_transformation_artifact['x']), 
+            np.array(data_transformation_artifact['y']), 
+            np.array(data_transformation_artifact['xt']), 
+            np.array(data_transformation_artifact['yt']),
         )
 
     data_ingestion_task = PythonOperator(
@@ -55,7 +62,7 @@ with DAG(
         task_id='data_transformation',
         python_callable=data_transformation
     )
-    data_transformation_task.doc_md = dedent('''
+    data_transformation_task.doc_md = dedent('''\
         ### Data Transformation
         This task creates training and testing arrays after transformations.
         '''
@@ -65,7 +72,7 @@ with DAG(
         task_id='model_trainer',
         python_callable=model_trainer
     )
-    model_trainer_task.doc_md = dedent("""
+    model_trainer_task.doc_md = dedent("""\
         ### Model Training
         This task creates a model.
         """
