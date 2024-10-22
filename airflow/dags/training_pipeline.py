@@ -5,6 +5,11 @@ import pendulum
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from src.pipeline.training_pipeline import TrainingPipeline
+import sys
+import os
+
+# Append the path to the root directory of your project
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 training_pipeline = TrainingPipeline()
 
